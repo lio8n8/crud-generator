@@ -1,0 +1,14 @@
+[
+    {
+        "type": "String",
+        "name": "username"
+    },
+    {
+        "type": "String",
+        "name": "email"
+    },
+    {
+        "type": "String",
+        "name": "psw"
+    }
+]
