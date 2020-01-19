@@ -1,16 +1,7 @@
 const fs = require('fs');
-const metadata = require('./input/metadata');
-
-// TODO: Merge constants to one object.
-
-/**
- * Contains possible file extensions.
- */
-const EXT = {
-    java: 'java',
-    nodejs: 'js',
-    csharp: 'cs'
-};
+const entity = require('./input/entity');
+const info = require('./input/info');
+const metadata = require('./metadata');
 
 /**
  * Contains possible languages.
@@ -26,18 +17,6 @@ const SUCCESS_MESSAGES = {
     csharp: ''
 };
 
-const CLASSES = {
-    java: ['DTO', 'RequestDTO', 'Entity', 'Service', 'Controller'],
-    nodejs: [],
-    csarp: []
-};
-
-const INTERFACES = {
-    java: ['IRepository', 'IService', 'IController'],
-    nodejs: [],
-    csharp: []
-};
-
 /**
  * Error messages.
  */
@@ -51,53 +30,40 @@ const ERRORS = {
 class CRUDGenerator {
 
     constructor() {
-        if (!LANGUAGES.includes(metadata.language)) {
+        if (!LANGUAGES.includes(info.language)) {
             throw new Error("Wrong language!");
         }
 
-        this.name = metadata.name;
-        this.language = metadata.language;
-        this.basePackage = metadata.basePackage || metadata.name + 's';
+        this.name = info.name;
+        this.language = info.language;
+        this.basePackage = info.basePackage || info.name + 's';
+        this.entityName = this.name[0].toUpperCase() + this.name.slice(1);
+        this.enityIdType = entity.find(p => p.name == 'id').type || 'String';
     }
 
-    // TODO: Fix && refactor.
     /**
-     * Creates new classes in base directory.
+     * Creates all needed classes and interfaces.
      */
-    createClasses() {
-        CLASSES[this.language].forEach(c => {
-            const template = require(`./templates/${this.language}/${c}`);
-            const data = template(this.name, this.basePackage);
-            this.writeToFile(`${this.name}s/${this.name[0].toUpperCase() 
-                + this.name.slice(1)
-                + `${/(DTO || Entity)$/.test(c) ? '' : 's'}`
-                + c }.${EXT[this.language]}`,
-                data);
-        });
-    }
+    create() {
+        metadata[this.language].forEach(item => {
+            const template = require(item.filename);
+            const data = template(this.name, this.basePackage, this.entityName, this.enityIdType);
 
-    // TODO: Fix && refactor.
-    /**
-     * Creates interfaces in base directory.
-     */
-    createInterfaces() {
-        INTERFACES[this.language].forEach(i => {
-            const template = require(`./templates/${this.language}/${i}`);
-            const data = template(this.name, this.basePackage);
-            this.writeToFile(`${this.name}s/I${this.name[0].toUpperCase() 
+            this.writeToFile(`${this.name}s/${item.subdirectory}/${
+                item.type == metadata.TYPES.interface ? 'I' : ''}${this.name[0].toUpperCase() 
                 + this.name.slice(1)
-                + 's'
-                + i.slice(1) }.${EXT[this.language]}`,
+                + 's' 
+                + item.part}.${metadata.EXT[this.language]}`,
                 data);
         });
     }
 
     /**
-     * Creates base directory.
+     * Creates directory.
      */
-    createBaseDirectory() {
-        if (!fs.existsSync(this.name + 's')){
-            fs.mkdirSync(this.name + 's');
+    createDirectory(name) {
+        if (!fs.existsSync(name)){
+            fs.mkdirSync(name);
         }
     }
 
@@ -116,6 +82,11 @@ class CRUDGenerator {
 }
 
 const crudGenerator = new CRUDGenerator();
-crudGenerator.createBaseDirectory();
-crudGenerator.createInterfaces();
-crudGenerator.createClasses();
+
+// TODO: Fix.
+crudGenerator.createDirectory(crudGenerator.name + 's');
+Object.keys(metadata.SUBDIRECTORIES).forEach(
+    subdir => crudGenerator.createDirectory(`${crudGenerator.name}s/${metadata.SUBDIRECTORIES[subdir]}` )
+);
+
+crudGenerator.create();
