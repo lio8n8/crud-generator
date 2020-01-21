@@ -47,13 +47,16 @@ class CRUDGenerator {
     create() {
         metadata[this.language].forEach(item => {
             const template = require(item.filename);
-            const data = template(this.name, this.basePackage, this.entityName, this.enityIdType);
+            const className = (item.type == metadata.TYPES.interface ? 'I' : '') + this.entityName + 's' + item.part;
+            const data = template({
+                className,
+                packageName: `${this.basePackage}.${item.subdirectory}`,
+                name: this.name,
+                entityName: this.entityName,
+                enityIdType: this.enityIdType
+            });
 
-            this.writeToFile(`${this.name}s/${item.subdirectory}/${
-                item.type == metadata.TYPES.interface ? 'I' : ''}${this.name[0].toUpperCase() 
-                + this.name.slice(1)
-                + 's' 
-                + item.part}.${metadata.EXT[this.language]}`,
+            this.writeToFile(`${this.name}s/${item.subdirectory}/${className}.${metadata.EXT[this.language]}`,
                 data);
         });
     }

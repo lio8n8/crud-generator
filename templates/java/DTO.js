@@ -1,7 +1,7 @@
 const entity = require('../../input/entity');
 
-module.exports = (name, basePackage) =>
-`package ${basePackage}.dto;
+module.exports = ({className, packageName, name, entityName, entityIdType}) =>
+`package ${packageName};
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ${name[0].toUpperCase() + name.slice(1)} {
+public class ${className} {
 
 ${entity.map(p => `\t/**
 \t* ${p.name[0].toUpperCase() + p.name.slice(1)}.

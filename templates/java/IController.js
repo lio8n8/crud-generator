@@ -1,7 +1,7 @@
-module.exports = (name, basePackage, entityName, entityIdType) =>
-`package ${basePackage};
+module.exports = ({className, packageName, name, entityName, entityIdType}) =>
+`package ${packageName};
 
-public interface I${entityName}sController {
+public interface ${className} {
     
     /**
      * Finds ${name} by id.

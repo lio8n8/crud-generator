@@ -1,10 +1,10 @@
-module.exports = (name, basePackage, entityName, entityIdType) =>
-`package ${basePackage};
+module.exports = ({className, packageName, name, entityName, entityIdType}) =>
+`package ${packageName};
 
 /**
  * ${entityName}s service interface.
  */
-public interface I${entityName}sService {
+public interface ${className} {
 
     /**
      * Finds ${name} by id.

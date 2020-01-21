@@ -32,6 +32,7 @@ const EXT = {
     csharp: 'cs'
 };
 
+// TODO: Add parameter to distinguish between plural and singular naming.
 /**
  * Contains data needed for creating java files.
  */

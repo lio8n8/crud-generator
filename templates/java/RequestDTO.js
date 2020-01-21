@@ -1,7 +1,7 @@
 const entity = require('../../input/entity');
 
-module.exports = (name, basePackage) =>
-`package ${basePackage}.dto;
+module.exports = ({className, packageName, name, entityName, entityIdType}) =>
+`package ${packageName};
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Contains for create/update ${name}.
+ * Contains data for create/update ${name}.
  */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ${name[0].toUpperCase() + name.slice(1)} {
+public class ${className} {
 
 ${entity.map(p => `\t/**
 \t* ${p.name[0].toUpperCase() + p.name.slice(1)}.

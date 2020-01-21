@@ -1,4 +1,4 @@
-module.exports = (name, basePackage) =>
-`package ${basePackage};
+module.exports = ({className, packageName, name, entityName, entityIdType}) =>
+`package ${packageName};
 
 `;
