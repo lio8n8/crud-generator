@@ -1,0 +1,23 @@
+{
+  "name": "crud-generator",
+  "version": "0.0.1",
+  "description": "CRUD generator",
+  "main": "generator.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "generate": "node ./generator.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lio8n8/crud-generator.git"
+  },
+  "author": "lio8n8",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lio8n8/crud-generator/issues"
+  },
+  "homepage": "https://github.com/lio8n8/crud-generator#readme"
+}

@@ -1,8 +1,8 @@
 # CRUD generator
 
 ## Prerequisites
-Install Node.js   
+Install Node.js && npm  
 ## Generate code
 Add input data into directory /input.   
 Run application.   
-`node generator`
+`npm run generate`
