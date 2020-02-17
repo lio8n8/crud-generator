@@ -1,7 +1,8 @@
 const fs = require('fs');
 const entity = require('./input/entity');
 const info = require('./input/info');
-const metadata = require('./metadata');
+const SUBDIRECTORIES = require('./data/subdirectories');
+const metadata = require('./data');
 
 /**
  * Contains possible languages.
@@ -38,7 +39,7 @@ class CRUDGenerator {
         this.language = info.language;
         this.basePackage = info.basePackage || info.name + 's';
         this.entityName = this.name[0].toUpperCase() + this.name.slice(1);
-        this.enityIdType = entity.find(p => p.name == 'id').type || 'String';
+        this.entityIdType = entity.find(p => p.name == 'id').type || 'String';
     }
 
     /**
@@ -47,16 +48,16 @@ class CRUDGenerator {
     create() {
         metadata[this.language].forEach(item => {
             const template = require(item.filename);
-            const className = (item.type == metadata.TYPES.interface ? 'I' : '') + this.entityName + 's' + item.part;
+            const className = item.name.starts + this.entityName + item.name.ends;
             const data = template({
                 className,
                 packageName: `${this.basePackage}.${item.subdirectory}`,
                 name: this.name,
                 entityName: this.entityName,
-                enityIdType: this.enityIdType
+                entityIdType: this.entityIdType
             });
 
-            this.writeToFile(`${this.name}s/${item.subdirectory}/${className}.${metadata.EXT[this.language]}`,
+            this.writeToFile(`${this.name}s/${item.subdirectory}/${className}.${item.ext}`,
                 data);
         });
     }
@@ -88,8 +89,10 @@ const crudGenerator = new CRUDGenerator();
 
 // TODO: Fix.
 crudGenerator.createDirectory(crudGenerator.name + 's');
-Object.keys(metadata.SUBDIRECTORIES).forEach(
-    subdir => crudGenerator.createDirectory(`${crudGenerator.name}s/${metadata.SUBDIRECTORIES[subdir]}` )
+Object.keys(SUBDIRECTORIES).forEach(
+    subdir => crudGenerator.createDirectory(`${crudGenerator.name}s/${SUBDIRECTORIES[subdir]}` )
 );
 
+// TODO: Rewrite.
 crudGenerator.create();
+console.info('Module generated');
