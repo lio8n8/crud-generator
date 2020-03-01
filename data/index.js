@@ -47,6 +47,10 @@ const java = [
     {
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Controller`,
         ...javaFilenames.controller
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_JAVA}/Converter`,
+        ...javaFilenames.converter
     }
 ];
 
