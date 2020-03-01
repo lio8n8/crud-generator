@@ -9,5 +9,6 @@ module.exports = {
     CONTROLLERS: 'controllers',
     ROUTES: 'routes',
     CONVERTERS: 'converters',
-    TESTS: 'tests'
+    TESTS: 'tests',
+    MIGRATIONS: 'migrations'
 };

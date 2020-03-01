@@ -5,5 +5,6 @@ module.exports = {
     java: 'java',
     nodejs: 'js',
     csharp: 'cs',
-    groovy: 'groovy'
+    groovy: 'groovy',
+    xml: 'xml'
 };

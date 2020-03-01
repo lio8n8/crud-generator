@@ -51,6 +51,10 @@ const java = [
     {
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Converter`,
         ...javaFilenames.converter
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_JAVA}/Migration`,
+        ...javaFilenames.migration
     }
 ];
 

@@ -55,5 +55,11 @@ module.exports = {
         subdir: SUBDIRECTORIES.CONTROLLERS,
         ext: EXT.java,
         instance: `${info.name}sController`
+    },
+    migration: {
+        name: `${utils.getFormattedDate()}-${utils.toKebabCase(info.name)}-table`,
+        subdir: SUBDIRECTORIES.MIGRATIONS,
+        ext: EXT.xml,
+        instance: null
     }
 };

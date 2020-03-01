@@ -47,6 +47,13 @@ function capitalize(word) {
 }
 module.exports.capitalize = capitalize;
 
+// TODO: Fix date format.
+module.exports.getFormattedDate = () => {
+    let date = new Date();
+
+    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+}
+
 /**
  * Converts camel case word to string[].
  * 
