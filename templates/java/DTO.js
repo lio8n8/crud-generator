@@ -1,7 +1,9 @@
 const entity = require('../../input/entity');
+const utils = require('../../utils');
+const filenames = require('../../data/java/filenames');
 
 module.exports = ({className, packageName, name, entityName, entityIdType}) =>
-`package ${packageName};
+`package ${packageName}.${filenames.dto.subdir};
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Contains ${name} data.
+ * Contains ${utils.convertToPhrase(name)} data.
  */
 @Getter
 @Setter

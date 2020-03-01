@@ -3,6 +3,7 @@ const entity = require('./input/entity');
 const info = require('./input/info');
 const SUBDIRECTORIES = require('./data/subdirectories');
 const metadata = require('./data');
+const utils = require('./utils');
 
 /**
  * Contains possible languages.
@@ -48,16 +49,15 @@ class CRUDGenerator {
     create() {
         metadata[this.language].forEach(item => {
             const template = require(item.filename);
-            const className = item.name.starts + this.entityName + item.name.ends;
             const data = template({
-                className,
-                packageName: `${this.basePackage}.${item.subdirectory}`,
+                className: item.name,
+                packageName: `${this.basePackage}.${this.name.toLowerCase()}`,
                 name: this.name,
                 entityName: this.entityName,
                 entityIdType: this.entityIdType
             });
 
-            this.writeToFile(`${this.name}s/${item.subdirectory}/${className}.${item.ext}`,
+            this.writeToFile(`${this.name}s/${item.subdir}/${item.name}.${item.ext}`,
                 data);
         });
     }

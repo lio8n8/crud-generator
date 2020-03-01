@@ -1,44 +1,61 @@
-module.exports = ({className, packageName, name, entityName, entityIdType}) =>
-`package ${packageName};
+const utils = require('../../utils');
+const filenames = require('../../data/java/filenames');
 
+module.exports = ({className, packageName, name, entityName, entityIdType}) => {
+    let descriptiveName = utils.convertToPhrase(name);
+
+return `package ${packageName}.${filenames.iController.subdir};
+
+import ${packageName}.${filenames.dto.subdir}.${filenames.dto.name};
+import ${packageName}.${filenames.dto.subdir}.${filenames.requestDto.name};
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+
+/**
+ * ${utils.convertToPhraseAndCapitalize(name)} controller interface.
+ */
 public interface ${className} {
-    
+
     /**
-     * Finds ${name} by id.
-     * @param id ${name} id.
+     * Finds ${descriptiveName} by id.
      *
-     * @return {@link ${entityName}DTO}.
+     * @param id ${descriptiveName} id
+     * @return {@link ${filenames.dto.name}}
      */
-    ResponseEntity<${entityName}DTO> findById(${entityIdType} id);
-    
+    ResponseEntity<${filenames.dto.name}> findById(${entityIdType} id);
+
     /**
-     * Finds all ${name}s.
+     * Finds all ${descriptiveName}s.
      *
-     * @return list of {@link ${entityName}DTO}.
+     * @param request pageable request
+     * @return {@link Page} with list of {@link ${filenames.dto.name}}
      */
-    ResponseEntity<List<${entityName}DTO>> findAll();
-    
+    ResponseEntity<Page<${filenames.dto.name}>> findAll(Pageable request);
+
     /**
-     * Creates a new ${name}.
-     * @param request create ${name} request.
+     * Create a new ${descriptiveName}.
      *
-     * @return {@link ${entityName}DTO}.
+     * @param request create ${descriptiveName} request
+     * @return created {@link ${filenames.dto.name}}
      */
-    ResponseEntity<${entityName}DTO> create(${entityName}RequestDTO request);
-    
+    ResponseEntity<${filenames.dto.name}> create(${filenames.requestDto.name} request);
+
     /**
-     * Updates ${name}.
-     * @param id ${name} id.
-     * @param request update ${name} request.
+     * Update ${descriptiveName}.
      *
-     * @return updated {@link ${entityName}DTO}
+     * @param id ${descriptiveName} id.
+     * @param request update ${descriptiveName} request
+     * @return updated {@link ${filenames.dto.name}}
      */
-    ResponseEntity<${entityName}DTO> update(${entityIdType} id, ${entityName}RquestDTO request);
-    
+    ResponseEntity<${filenames.dto.name}> update(${entityIdType} id, ${filenames.requestDto.name} request);
+
     /**
-     * Deletes ${name} by id.
-     * @param id ${name} id.
+     * Deletes ${descriptiveName} by id.
+     *
+     * @param id ${descriptiveName} id
+     * @return empty response
      */
-    ResponseEntity<Void> deleteById(${entityIdType} id);
-}    
-`;
+    ResponseEntity deleteById(${entityIdType} id);
+}
+`};

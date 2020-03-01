@@ -1,5 +1,6 @@
 const EXT = require('./extensions');
 const SUBDIRECTORIES = require('./subdirectories');
+const javaFilenames = require('./java/filenames');
 
 /**
  * Root templates directory.
@@ -16,76 +17,36 @@ const TEMPLATE_DIRECTORY_JAVA = `${TEMPLATE_DIRECTORY_ROOT}/java`;
  */
 const java = [
     {
-        subdirectory: SUBDIRECTORIES.DTO,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/DTO`,
-        name: {
-            starts: '',
-            ends: 'DTO'
-        },
-        ext: EXT.java
+        ...javaFilenames.dto
     },
     {
-        subdirectory: SUBDIRECTORIES.DTO,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/RequestDTO`,
-        name: {
-            starts: '',
-            ends: 'RequestDTO'
-        },
-        ext: EXT.java
+        ...javaFilenames.requestDto
     },
     {
-        subdirectory: SUBDIRECTORIES.MODELS,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Entity`,
-        name: {
-            starts: '',
-            ends: ''
-        },
-        ext: EXT.java
+        ...javaFilenames.model
     },
     {
-        subdirectory: SUBDIRECTORIES.REPOSITORIES,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/IRepository`,
-        name: {
-            starts: '',
-            ends: 'Repository'
-        },
-        ext: EXT.java
+        ...javaFilenames.iRepository
     },
     {
-        subdirectory: SUBDIRECTORIES.SERVICES,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/IService`,
-        name: {
-            starts: 'I',
-            ends: 'Service'
-        },
-        ext: EXT.java
+        ...javaFilenames.iService
     },
     {
-        subdirectory: SUBDIRECTORIES.SERVICES,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Service`,
-        name: {
-            starts: '',
-            ends: 'Service'
-        },
-        ext: EXT.java
+        ...javaFilenames.service
     },
     {
-        subdirectory: SUBDIRECTORIES.CONTROLLERS,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/IController`,
-        name: {
-            starts: 'I',
-            ends: 'Controller'
-        },
-        ext: EXT.java
+        ...javaFilenames.iController
     },
     {
-        subdirectory: SUBDIRECTORIES.CONTROLLERS,
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Controller`,
-        name: {
-            starts: '',
-            ends: 'Controller'
-        },
-        ext: EXT.java
+        ...javaFilenames.controller
     }
 ];
 

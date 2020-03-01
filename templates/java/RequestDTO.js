@@ -1,7 +1,9 @@
 const entity = require('../../input/entity');
+const utils = require('../../utils');
+const filenames = require('../../data/java/filenames');
 
 module.exports = ({className, packageName, name, entityName, entityIdType}) =>
-`package ${packageName};
+`package ${packageName}.${filenames.dto.subdir};
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Contains data for create/update ${name}.
+ * Contains data for create/update ${utils.convertToPhrase(name)}.
  */
 @Getter
 @Setter

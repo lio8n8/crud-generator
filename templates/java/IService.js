@@ -1,43 +1,60 @@
-module.exports = ({className, packageName, name, entityName, entityIdType}) =>
-`package ${packageName};
+const utils = require('../../utils');
+const filenames = require('../../data/java/filenames');
+
+module.exports = ({className, packageName, name, entityName, entityIdType}) => {
+    let descriptiveName = utils.convertToPhrase(name);
+
+return `
+package ${packageName}.${filenames.iService.subdir};
+
+import ${packageName}.${filenames.requestDto.subdir}.${filenames.requestDto.name};
+import ${packageName}.${filenames.model.subdir}.${filenames.model.name};
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
- * ${entityName}s service interface.
+ * ${utils.convertToPhraseAndCapitalize(name)} service interface.
  */
 public interface ${className} {
 
     /**
-     * Finds ${name} by id.
-     * @param id ${name} id.
-     * @return {@link ${entityName}}.
+     * Finds ${descriptiveName} by id.
+     *
+     * @param id ${descriptiveName} id
+     * @return {@link ${filenames.model.name}}
      */
-    ${entityName} findById(${entityIdType} id);
+    ${filenames.model.name} findById(${entityIdType} id);
 
     /**
-     * Finds all ${name}s.
-     * @return list of {@link ${entityName}};
+     * Finds all ${descriptiveName}s.
+     *
+     * @param request pageable request
+     * @return page with list of {@link ${filenames.model.name}}
      */
-    List<${entityName}> findAll();
+    Page<${filenames.model.name}> findAll(Pageable request);
 
     /**
-     * Creates a new ${name}.
-     * @param request create ${name} request.
-     * @return created {@link ${entityName}}.
+     * Creates a new ${descriptiveName}.
+     *
+     * @param request create ${descriptiveName} request
+     * @return created {@link${filenames.model.name}}
      */
-    ${entityName} create(${entityName}RequestDTO request);
+    ${filenames.model.name} create(${filenames.requestDto.name} request);
 
     /**
-     * Updates ${name}.
-     * @param id ${name} id.
-     * @param request update ${name} request.
-     * @return updated {@link ${entityName}}.
+     * Updates ${descriptiveName}.
+     *
+     * @param id ${descriptiveName} id
+     * @param request update ${descriptiveName} request
+     * @return updated {@link ${filenames.model.name}}
      */
-    ${entityName} update(${entityIdType} id, ${entityName}RequestDTO request);
+    ${filenames.model.name} update(${entityIdType} id, ${filenames.requestDto.name} request);
 
     /**
-     * Deletes ${name} by id.
-     * @param id ${name} id.
+     * Deletes ${descriptiveName} by id.
+     *
+     * @param id ${descriptiveName} id
      */
     void deleteById(${entityIdType} id);
 }
-`;
+`};

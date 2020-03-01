@@ -1,7 +1,9 @@
 const entity = require('../../input/entity');
+const utils = require('../../utils');
+const filenames = require('../../data/java/filenames');
 
-module.exports = ({className, packageName, name, entityName, entityIdType}) =>
-`package ${packageName};
+module.exports = ({className, packageName, name, entityIdType}) =>
+`package ${packageName}.${filenames.model.subdir};
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.AUTO;
 
 /**
- * ${entityName} entity.
+ * ${utils.convertToPhraseAndCapitalize(name)} entity.
  */
 @Getter
 @Setter
@@ -25,11 +27,11 @@ import static javax.persistence.GenerationType.AUTO;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "${name}s")
+@Table(name = "${utils.toSnakeCase(name)}s")
 public class ${className} {
 
     /**
-     * ${entityName} id.
+     * ${utils.convertToPhraseAndCapitalize(name)} id.
      */
     @Id
     @GeneratedValue(strategy = AUTO)
@@ -39,4 +41,5 @@ ${entity.filter(i => i.name != 'id').map(p => `\t/**
 \t* ${p.name[0].toUpperCase() + p.name.slice(1)}.
 \t*/
 \tprivate ${p.type} ${p.name};`).join('\n\n')}
-}\n`;
+}
+`;
