@@ -47,11 +47,26 @@ function capitalize(word) {
 }
 module.exports.capitalize = capitalize;
 
-// TODO: Fix date format.
-module.exports.getFormattedDate = () => {
-    let date = new Date();
+/**
+ * Formats given date to 'dd-mm-yyyy-hh-mm-ss'
+ * 
+ * @param {Date} date
+ * @returns formatted date string.
+ */
+module.exports.formatDate = (date) => {
+    let dd = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
 
-    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+    return (dd < 10 ? '0' : '') + `${dd}-`
+           + (month < 10 ? '0' : '') + `${month}-`
+           + year + '-'
+           + (hours < 10 ? '0' : '') + `${hours}-`
+           + (minutes < 10 ? '0' : '') + `${minutes}-`
+           + (seconds < 10 ? '0' : '') + `${seconds}-`;
 }
 
 /**

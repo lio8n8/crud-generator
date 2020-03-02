@@ -7,7 +7,7 @@ module.exports = ({name, entityIdType}) =>
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <changeSet author="${os.userInfo().username}" id="${utils.getFormattedDate()}">
+    <changeSet author="${os.userInfo().username}" id="${utils.formatDate(new Date())}">
         <createTable tableName="${utils.toSnakeCase(name)}s">
             <column name="id" type="${entityIdType}">
                 <constraints primaryKey="true" primaryKeyName="pk_${utils.toSnakeCase(name)}" nullable="false" unique="true"/>
