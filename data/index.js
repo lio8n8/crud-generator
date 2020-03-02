@@ -13,6 +13,11 @@ const TEMPLATE_DIRECTORY_ROOT = 'templates';
 const TEMPLATE_DIRECTORY_JAVA = `${TEMPLATE_DIRECTORY_ROOT}/java`;
 
 /**
+ * Groovy tests template directory.
+ */
+const TEMPLATE_DIRECTORY_GROOVY_TESTS = `${TEMPLATE_DIRECTORY_ROOT}/java/tests`;
+
+/**
  * Contains data needed for creating java files.
  */
 const java = [
@@ -55,6 +60,22 @@ const java = [
     {
         filename: `./${TEMPLATE_DIRECTORY_JAVA}/Migration`,
         ...javaFilenames.migration
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_GROOVY_TESTS}/ServiceUnitTest`,
+        ...javaFilenames.serviceUnitTest
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_GROOVY_TESTS}/ServiceIntegrationTest`,
+        ...javaFilenames.serviceIntegrationTest
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_GROOVY_TESTS}/ControllerUnitTest`,
+        ...javaFilenames.controllerUnitTest
+    },
+    {
+        filename: `./${TEMPLATE_DIRECTORY_GROOVY_TESTS}/ControllerIntegrationTest`,
+        ...javaFilenames.controllerIntegrationTest
     }
 ];
 

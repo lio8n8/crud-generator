@@ -61,5 +61,29 @@ module.exports = {
         subdir: SUBDIRECTORIES.MIGRATIONS,
         ext: EXT.xml,
         instance: null
+    },
+    serviceUnitTest: {
+        name: `${capitalizedName}sServiceUnitTest`,
+        subdir: SUBDIRECTORIES.TESTS,
+        ext: EXT.groovy,
+        instance: null
+    },
+    serviceIntegrationTest: {
+        name: `${capitalizedName}sServiceIntegrationTest`,
+        subdir: SUBDIRECTORIES.TESTS,
+        ext: EXT.groovy,
+        instance: null
+    },
+    controllerUnitTest: {
+        name: `${capitalizedName}sControllerUnitTest`,
+        subdir: SUBDIRECTORIES.TESTS,
+        ext: EXT.groovy,
+        instance: null
+    },
+    controllerIntegrationTest: {
+        name: `${capitalizedName}sControllerIntegrationTest`,
+        subdir: SUBDIRECTORIES.TESTS,
+        ext: EXT.groovy,
+        instance: null
     }
 };
